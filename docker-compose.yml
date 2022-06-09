@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  app:
+    build: .
+    ports:
+      - 3000:3000
+    container_name: docker_rails
+    volumes:
+      - /Users/dmytromolodko/rails_apps/kubes:/app
+      - bundle_path:/bundle # New
+    depends_on:
+      - database
+    environment:
+      DB_HOST: database
+      DB_USERNAME: sammy
+      DB_PASSWORD: password
+      DB_DATABASE: kubes_development
+      BUNDLE_PATH: /bundle/vendor #New
+    restart: always
+  database:
+    image: postgres:11.4-alpine
+    # ports:
+    #   - 5099:5432
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: sammy
+      POSTGRES_DB: kubes_development
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    restart: always
+
+volumes:
+  bundle_path:
+  db_data:

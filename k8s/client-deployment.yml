@@ -1,0 +1,33 @@
+# TODO: Make password as secret
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: web
+  template:
+    metadata:
+      labels:
+        component: web
+    spec:
+      containers:
+        - name: client
+          image: dmleobit/kubes_app
+          ports:
+            - containerPort: 3000
+          env:
+            - name: DB_USERNAME
+              value: postgres
+            - name: DB_HOST
+              value: postgres-cluster-ip-service
+            - name: DB_DATABASE
+              value: postgres
+            - name: DB_PASSWORD
+              value: 12345test
+              # valueFrom:
+              #   secretKeyRef:
+              #     name: pgpassword
+              #     key: PGPASSWORD

@@ -25,5 +25,4 @@ RUN yarn install
 
 COPY . ./
 
-# CMD ["rails", "server"]
-CMD ["rails", "server", "-b", "0.0.0.0"]
+ENTRYPOINT ["sh", "./entrypoints/docker-entrypoint.sh"]

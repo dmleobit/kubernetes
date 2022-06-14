@@ -1,0 +1,50 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: create
+spec:
+  template:
+    metadata:
+      name: create
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: create
+        image: dmleobit/kubes_app:books
+        command: ['rails']
+        args: ["db:create"]
+        env:
+          - name: DB_USERNAME
+            value: postgres
+          - name: DB_HOST
+            value: postgres-cluster-ip-service
+          - name: DB_DATABASE
+            value: kubes_app
+          - name: DB_PASSWORD
+            value: 12345test
+
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: migrate
+spec:
+  template:
+    metadata:
+      name: migrate
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: migrate
+        image: dmleobit/kubes_app:books
+        command: ['rails']
+        args: ["db:migrate"]
+        env:
+          - name: DB_USERNAME
+            value: postgres
+          - name: DB_HOST
+            value: postgres-cluster-ip-service
+          - name: DB_DATABASE
+            value: kubes_app
+          - name: DB_PASSWORD
+            value: 12345test

@@ -12,11 +12,11 @@ local: &local
 
 development:
   <<: *local
-  database: <%= ENV.fetch('DB_DATABASE', 'docker_dev') %>
+  database: <%= ENV.fetch('DB_DATABASE', 'kubes_dev') %>
 
 test:
   <<: *local
-  database: <%= ENV.fetch('DB_DATABASE', 'docker_test') %>
+  database: <%= ENV.fetch('DB_DATABASE', 'kubes_test') %>
 
 production:
   <<: *default

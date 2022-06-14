@@ -1,4 +1,3 @@
-# TODO: Make password as secret
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -28,8 +27,7 @@ spec:
               subPath: postgres
           env:
             - name: POSTGRES_PASSWORD
-              value: 12345test
-              # valueFrom:
-              #   secretKeyRef:
-              #     name: pgpassword
-              #     key: PGPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: pgpassword
+                  key: PGPASSWORD

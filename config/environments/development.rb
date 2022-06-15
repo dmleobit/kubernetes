@@ -30,6 +30,9 @@ Rails.application.configure do
     config.cache_store = :null_store
   end
 
+  # TODO: Make an regex
+  config.hosts << "a698aaa86cd574d26948419b8b806597-b928c2c43ac37d7e.elb.us-east-1.amazonaws.com"
+
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :local
 

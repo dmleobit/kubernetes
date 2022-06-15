@@ -10,7 +10,7 @@ spec:
       restartPolicy: Never
       containers:
       - name: create
-        image: dmleobit/kubes_app:books
+        image: dmleobit/kubes_app:latest
         command: ['rails']
         args: ["db:create"]
         env:
@@ -36,7 +36,7 @@ spec:
       restartPolicy: Never
       containers:
       - name: migrate
-        image: dmleobit/kubes_app:books
+        image: dmleobit/kubes_app:latest
         command: ['rails']
         args: ["db:migrate"]
         env:

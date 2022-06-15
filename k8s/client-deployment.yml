@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: client
-          image: dmleobit/kubes_app:books
+          image: dmleobit/kubes_app:latest
           ports:
             - containerPort: 3000
           env:

@@ -78,8 +78,12 @@ GEM
       xpath (~> 3.2)
     childprocess (4.1.0)
     concurrent-ruby (1.1.10)
+    connection_pool (2.2.5)
     crass (1.0.6)
     dotenv (2.7.6)
+    dotenv-rails (2.7.6)
+      dotenv (= 2.7.6)
+      railties (>= 3.2)
     erubi (1.10.0)
     ffi (1.15.5)
     globalid (1.0.0)
@@ -152,6 +156,7 @@ GEM
     rb-fsevent (0.11.1)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
+    redis (4.6.0)
     regexp_parser (2.5.0)
     rexml (3.2.5)
     rubyzip (2.3.2)
@@ -170,6 +175,10 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2)
     semantic_range (3.0.0)
+    sidekiq (6.5.1)
+      connection_pool (>= 2.2.2)
+      rack (~> 2.0)
+      redis (>= 4.2.0)
     spring (3.1.1)
     sprockets (4.0.3)
       concurrent-ruby (~> 1.0)
@@ -214,15 +223,17 @@ DEPENDENCIES
   bootsnap (>= 1.4.4)
   byebug
   capybara (>= 3.26)
-  dotenv
+  dotenv-rails
   jbuilder (~> 2.7)
   listen (~> 3.3)
   pg (~> 1.1)
   puma (~> 5.0)
   rack-mini-profiler (~> 2.0)
   rails (~> 6.1.6)
+  redis
   sass-rails (>= 6)
   selenium-webdriver (>= 4.0.0.rc1)
+  sidekiq
   spring
   turbolinks (~> 5)
   tzinfo-data

@@ -2,21 +2,25 @@ version: '3'
 
 services:
   app:
-    image: dmleobit/kubes_app:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - 3000:3000
-    container_name: docker_rails
+    container_name: app_rails
     volumes:
       - /Users/dmytromolodko/rails_apps/kubes:/app
       - bundle_path:/bundle # New
     depends_on:
       - database
+      - redis
     environment:
       DB_HOST: database
       DB_USERNAME: sammy
       DB_PASSWORD: password
       DB_DATABASE: kubes_development
       BUNDLE_PATH: /bundle/vendor #New
+      REDIS_HOST: redis
     restart: always
   database:
     image: postgres:11.4-alpine
@@ -29,6 +33,28 @@ services:
     volumes:
       - db_data:/var/lib/postgresql/data
     restart: always
+  redis:
+    image: redis:5.0-alpine
+  sidekiq:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - /Users/dmytromolodko/rails_apps/kubes:/app
+      - bundle_path:/bundle # New
+    depends_on:
+      - database
+      - redis
+      - app
+    environment:
+      DB_HOST: database
+      DB_USERNAME: sammy
+      DB_PASSWORD: password
+      DB_DATABASE: kubes_development
+      BUNDLE_PATH: /bundle/vendor #New
+      REDIS_HOST: redis
+    restart: always
+    entrypoint: ["sh", "./entrypoints/sidekiq-entrypoint.sh"]
 
 volumes:
   bundle_path:

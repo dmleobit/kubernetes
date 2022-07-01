@@ -1,0 +1,27 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: create
+spec:
+  template:
+    metadata:
+      name: create
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: create
+        image: dmleobit/kubes_app:latest
+        command: ['rails']
+        args: ["db:create"]
+        env:
+          - name: DB_USERNAME
+            value: postgres
+          - name: DB_HOST
+            value: postgres-cluster-ip-service
+          - name: DB_DATABASE
+            value: kubes_app
+          - name: DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: pgpassword
+                key: PGPASSWORD

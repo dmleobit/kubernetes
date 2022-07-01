@@ -1,22 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: client-deployment
+  name: sidekiq-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      component: web
+      component: sidekiq
   template:
     metadata:
       labels:
-        component: web
+        component: sidekiq
     spec:
       containers:
-        - name: client
+        - name: sidekiq
           image: dmleobit/kubes_app:latest
-          ports:
-            - containerPort: 3000
+          command: ["bundle"]
+          args:
+            - "exec"
+            - "sidekiq"
           env:
             - name: DB_USERNAME
               value: postgres
